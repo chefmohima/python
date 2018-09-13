@@ -1,0 +1,80 @@
+class Node:
+    def __init__(self,value):
+        self.left = None
+        self.right = None
+        self.data = value
+        
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+        
+    def isEmpty(self):
+        return self.root == None
+        
+    def preorder(self,rootnode):
+        current = rootnode
+        if current == None:
+            return
+        print(current.data)
+        self.preorder(current.left)
+        self.preorder(current.right)
+        
+    def inorder(self,rootnode):
+        current = rootnode
+        if current == None:
+            return
+        self.inorder(current.left)
+        print(current.data)
+        self.inorder(current.right)
+        
+    def postorder(self,rootnode):
+        current = rootnode
+        if current == None:
+            return
+        self.postorder(current.left)
+        self.postorder(current.right)
+        print(current.data)
+        
+    def levelorder(self,rootnode):
+        q = []
+        q.append(rootnode)
+        while q:
+            item = q.pop(0)
+            print (item.data)
+            if item.left:
+                q.append(item.left)
+            if item.right:
+                q.append(item.right)
+                
+    def getHeight(self,rootnode):
+        #height of tree = max(height of children) + 1
+        current = rootnode
+        if current == None:
+            return 0
+        leftheight = self.getHeight(current.left)
+        rightheight = self.getHeight(current.right)
+        return max(leftheight,rightheight) + 1
+        
+        
+b = BinaryTree()
+node0 = Node('A')
+node1 = Node('B')
+node2 = Node('C')
+node3 = Node('D')
+node4 = Node('E')
+node0.left = node1
+node0.right = node2
+node1.left = node3
+node1.right = node4
+
+b.root = node0
+print ("Preorder traversal")
+b.preorder(node0)
+print ("Inorder traversal")
+b.inorder(node0)
+print ("Postorder traversal")
+b.postorder(node0)
+print("Breadth first/ level order traversl")
+b.levelorder(node0)
+h = b.getHeight(node0)
+print("Height of tree :", h)
